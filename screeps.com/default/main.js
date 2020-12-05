@@ -17,7 +17,7 @@ module.exports.loop = function () {
 
     spawnCreepsByRole(HOME, 'harvester');
     spawnCreepsByRole(HOME, 'upgrader');
-    spawnCreepsByRole(HOME, 'builder', 1);
+
 
     if(HOME.spawning) {
         const spawningCreep = Game.creeps[HOME.spawning.name];
@@ -33,6 +33,13 @@ module.exports.loop = function () {
         const room = Game.rooms[roomName];
         if(room && room.controller && room.controller.my) {
             console.log('Room with my controller:', roomName)
+            console.log(JSON.stringify(room.memory, null, 2))
+
+            const sites = room.find(FIND_CONSTRUCTION_SITES)
+            if(_.size(sites) > 0) {
+                spawnCreepsByRole(HOME, 'builder');
+            }
+
         }
     };
 

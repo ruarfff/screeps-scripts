@@ -1,0 +1,23 @@
+{
+  "name": "screeps-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for screeps game",
+  "main": "index.js",
+  "repository": "git@github.com:ruarfff/screeps-scripts.git",
+  "author": "Ruairi O Brien",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/screeps": "^3.2.1",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "eslint": "^7.15.0",
+    "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.20"
+  }
+}

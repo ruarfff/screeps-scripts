@@ -7,7 +7,8 @@
   "author": "Ruairi O Brien",
   "license": "MIT",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "tsc -w"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
@@ -15,6 +16,9 @@
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
     "eslint": "^7.15.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "prettier": "^2.2.1",
     "typescript": "^4.1.2"
   },
   "dependencies": {

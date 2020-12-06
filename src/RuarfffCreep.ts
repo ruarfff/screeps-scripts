@@ -2,7 +2,7 @@ type RuarfffCreepMemory = CreepMemory & {
     role?: string;
     home?: string;
     working?: boolean;
-    targetSource?: string;
+    targetSource?: Id<Source>;
     target?: unknown;
 };
 

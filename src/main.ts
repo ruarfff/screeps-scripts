@@ -14,6 +14,15 @@ const roles: Map<string, (creep: Creep) => void> = new Map([
 ]);
 
 export const loop = (): void => {
+    for (const roomName in Game.rooms) {
+        const room = Game.rooms[roomName];
+        if (room && room.controller && room.controller.my) {
+            runRoomLogic(room);
+        }
+    }
+};
+
+function runRoomLogic(room: Room): void {
     const HOME = Game.spawns['Spawn1'];
 
     for (const name in Memory.creeps) {
@@ -23,7 +32,7 @@ export const loop = (): void => {
         }
     }
 
-    runSpawn(HOME);
+    runSpawn(room, HOME);
 
     for (const name in Game.creeps) {
         const creep: Creep = Game.creeps[name];
@@ -44,4 +53,4 @@ export const loop = (): void => {
             Game.notify(`User ${username} spotted in room ${roomName}`);
         }
     }
-};
+}

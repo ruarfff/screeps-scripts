@@ -8,7 +8,7 @@ export default (spawn: StructureSpawn): void => {
         if (room && room.controller && room.controller.my) {
             const sites = room.find(FIND_CONSTRUCTION_SITES);
             if (_.size(sites) > 0) {
-                spawnCreepsByRole(spawn, 'builder', 4);
+                spawnCreepsByRole(spawn, 'builder');
             }
         }
     }
@@ -24,8 +24,15 @@ function spawnCreepsByRole(spawnPoint: StructureSpawn, role: string, amount = 2)
         // Game.spawns['Spawn1'].spawnCreep( [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE],
         //     'HarvesterBig',
         //     { memory: { role: 'harvester' } } );
-        spawnPoint.spawnCreep([WORK, WORK, CARRY, MOVE, MOVE], newName, {
-            memory: { role },
-        });
+
+        if (role === 'builder' || role === 'repairer') {
+            spawnPoint.spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, {
+                memory: { role },
+            });
+        } else {
+            spawnPoint.spawnCreep([WORK, WORK, WORK, CARRY, MOVE, MOVE], newName, {
+                memory: { role },
+            });
+        }
     }
 }

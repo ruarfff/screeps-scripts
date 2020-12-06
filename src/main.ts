@@ -36,4 +36,12 @@ export const loop = (): void => {
     for (const tower of towers) {
         runTower(tower);
     }
+
+    for (const roomName in Game.rooms) {
+        const hostiles = Game.rooms[roomName].find(FIND_HOSTILE_CREEPS);
+        if (hostiles.length > 0) {
+            const username = hostiles[0].owner.username;
+            Game.notify(`User ${username} spotted in room ${roomName}`);
+        }
+    }
 };

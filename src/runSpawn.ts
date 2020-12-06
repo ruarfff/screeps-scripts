@@ -24,7 +24,7 @@ function spawnCreepsByRole(spawnPoint: StructureSpawn, role: string, amount = 2)
         // Game.spawns['Spawn1'].spawnCreep( [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE],
         //     'HarvesterBig',
         //     { memory: { role: 'harvester' } } );
-        spawnPoint.spawnCreep([WORK, CARRY, MOVE], newName, {
+        spawnPoint.spawnCreep([WORK, WORK, CARRY, MOVE, MOVE], newName, {
             memory: { role },
         });
     }

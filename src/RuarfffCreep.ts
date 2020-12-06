@@ -3,6 +3,7 @@ type RuarfffCreepMemory = CreepMemory & {
     home?: string;
     working?: boolean;
     targetSource?: string;
+    target?: unknown;
 };
 
 export default interface RuarfffCreep extends Omit<Creep, 'memory'> {

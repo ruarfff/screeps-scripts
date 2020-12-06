@@ -1,7 +1,16 @@
-import { roleHarvester } from './role.harvester';
-import { roleUpgrader } from './role.upgrader';
-import { roleBuilder } from './role.builder';
+import harvester from './role.harvester';
+import upgrader from './role.upgrader';
+import builder from './role.builder';
+import repairer from './role.repairer';
 import Creep from './RuarfffCreep';
+import runTower from './runTower';
+
+const roles: Map<string, (creep: Creep) => void> = new Map([
+    ['harvester', harvester],
+    ['upgrader', upgrader],
+    ['builder', builder],
+    ['repairer', repairer],
+]);
 
 export const loop = (): void => {
     const HOME = Game.spawns['Spawn1'];
@@ -28,7 +37,6 @@ export const loop = (): void => {
     }
 
     for (const roomName in Game.rooms) {
-        console.log(roomName);
         const room = Game.rooms[roomName];
         if (room && room.controller && room.controller.my) {
             console.log('Room with my controller:', roomName);
@@ -43,15 +51,15 @@ export const loop = (): void => {
 
     for (const name in Game.creeps) {
         const creep: Creep = Game.creeps[name];
-        if (creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
+        if (creep.memory.role && !!roles.get(`${creep.memory.role}`)) {
+            roles.get(`${creep.memory.role}`)?.(creep);
         }
-        if (creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
-        }
-        if (creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
-        }
+    }
+
+    const towers = _.filter(Game.structures, (s: { structureType: string }) => s.structureType == STRUCTURE_TOWER);
+    for (const tower of towers) {
+        console.log('TOWER:::', tower);
+        runTower(tower);
     }
 };
 

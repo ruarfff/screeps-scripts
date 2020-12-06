@@ -1,7 +1,4 @@
-// TODO
-
-const tower: any = Game.getObjectById('eef6f0f2ac1133d1d0bbaed5');
-if (tower) {
+export default (tower: StructureTower): void => {
     const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: (structure: { hits: number; hitsMax: number }) => structure.hits < structure.hitsMax,
     });
@@ -13,4 +10,4 @@ if (tower) {
     if (closestHostile) {
         tower.attack(closestHostile);
     }
-}
+};

@@ -26,11 +26,12 @@ export default (creep: Creep): void => {
 
     // if we found one
     if (structure) {
-        console.log('Going ot structure:', structure);
         // try to transfer energy, if it is not in range
         if (creep.transfer(structure, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             // move towards it
             creep.moveTo(structure, { visualizePathStyle: { stroke: '#ffffff' } });
         }
+    } else {
+        creep.moveTo(14, 34);
     }
 };

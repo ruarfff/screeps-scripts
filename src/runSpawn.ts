@@ -1,11 +1,11 @@
 export default (room: Room, spawn: StructureSpawn): void => {
-    spawnCreepsByRole(spawn, 'harvester');
+    spawnCreepsByRole(spawn, 'harvester', 1);
     spawnCreepsByRole(spawn, 'upgrader', 1);
     spawnCreepsByRole(spawn, 'repairer', 1);
 
     const sites = room.find(FIND_CONSTRUCTION_SITES);
     if (_.size(sites) > 0) {
-        spawnCreepsByRole(spawn, 'builder', 3);
+        spawnCreepsByRole(spawn, 'builder', 4);
     }
 
     const sources = room.find(FIND_SOURCES);
@@ -47,7 +47,7 @@ function spawnCreepsByRole(spawnPoint: StructureSpawn, role: string, amount = 2)
         console.log('Spawning new creep:', newName);
 
         if (role === 'builder' || role === 'repairer') {
-            spawnPoint.spawnCreep([WORK, CARRY, MOVE], newName, {
+            spawnPoint.spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, {
                 memory: { role },
             });
         } else {

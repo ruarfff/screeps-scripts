@@ -22,8 +22,6 @@ export const loop = (): void => {
         }
     }
 
-    // Game.spawns['Spawn1'].room.createConstructionSite( 23, 22, STRUCTURE_TOWER );
-
     spawnCreepsByRole(HOME, 'harvester');
     spawnCreepsByRole(HOME, 'upgrader');
     spawnCreepsByRole(HOME, 'repairer');
@@ -39,9 +37,6 @@ export const loop = (): void => {
     for (const roomName in Game.rooms) {
         const room = Game.rooms[roomName];
         if (room && room.controller && room.controller.my) {
-            console.log('Room with my controller:', roomName);
-            console.log(JSON.stringify(room.memory, null, 2));
-
             const sites = room.find(FIND_CONSTRUCTION_SITES);
             if (_.size(sites) > 0) {
                 spawnCreepsByRole(HOME, 'builder', 4);
@@ -58,14 +53,12 @@ export const loop = (): void => {
 
     const towers = _.filter(Game.structures, (s: { structureType: string }) => s.structureType == STRUCTURE_TOWER);
     for (const tower of towers) {
-        console.log('TOWER:::', tower);
         runTower(tower);
     }
 };
 
 function spawnCreepsByRole(spawnPoint: StructureSpawn, role: string, amount = 2) {
     const creeps = _.filter(Game.creeps, (creep: { memory: { role: string } }) => creep.memory.role == role);
-    console.log(role + 's:', creeps.length);
 
     if (creeps.length < amount) {
         const newName = role + '-' + Game.time;

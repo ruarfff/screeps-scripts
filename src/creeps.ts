@@ -20,7 +20,7 @@ export const harvestEnergy = (creep: Creep, useContainer: boolean, useSource: bo
         }
     }
     // if no container was found and the Creep should look for Sources
-    if (container == undefined && useSource) {
+    if (!container && useSource) {
         // find closest source
         const source = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
 
@@ -31,5 +31,18 @@ export const harvestEnergy = (creep: Creep, useContainer: boolean, useSource: bo
                 creep.moveTo(source);
             }
         }
+    }
+};
+
+export const setIsWorking = (creep: Creep): void => {
+    // if creep is trying to complete a constructionSite but has no energy left
+    if (creep.memory.working && creep.carry.energy === 0) {
+        // switch state
+        creep.memory.working = false;
+    }
+    // if creep is harvesting energy but is full
+    else if (!creep.memory.working && creep.carry.energy === creep.carryCapacity) {
+        // switch state
+        creep.memory.working = true;
     }
 };

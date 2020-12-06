@@ -16,7 +16,7 @@ export default (creep: Creep): void => {
         // try to build, if the constructionSite is not in range
         if (creep.build(constructionSite) == ERR_NOT_IN_RANGE) {
             // move towards the constructionSite
-            creep.moveTo(constructionSite);
+            creep.moveTo(constructionSite, { visualizePathStyle: { stroke: '#ffffff' } });
         }
     }
     // if no constructionSite is found

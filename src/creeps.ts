@@ -15,7 +15,7 @@ export const harvestEnergy = (creep: Creep, useContainer: boolean, useSource: bo
             // try to withdraw energy, if the container is not in range
             if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                 // move towards it
-                creep.moveTo(container);
+                creep.moveTo(container, { visualizePathStyle: { stroke: '#ffffff' } });
             }
         }
     }
@@ -28,7 +28,7 @@ export const harvestEnergy = (creep: Creep, useContainer: boolean, useSource: bo
             // try to harvest energy, if the source is not in range
             if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
                 // move towards it
-                creep.moveTo(source);
+                creep.moveTo(source, { visualizePathStyle: { stroke: '#ffffff' } });
             }
         }
     }

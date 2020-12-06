@@ -4,6 +4,7 @@ import builder from './role.builder';
 import repairer from './role.repairer';
 import Creep from './RuarfffCreep';
 import runTower from './runTower';
+import runSpawn from './runSpawn';
 
 const roles: Map<string, (creep: Creep) => void> = new Map([
     ['harvester', harvester],
@@ -22,27 +23,7 @@ export const loop = (): void => {
         }
     }
 
-    spawnCreepsByRole(HOME, 'harvester');
-    spawnCreepsByRole(HOME, 'upgrader');
-    spawnCreepsByRole(HOME, 'repairer');
-
-    if (HOME.spawning) {
-        const spawningCreep: Creep = Game.creeps[HOME.spawning.name];
-        HOME.room.visual.text('🏗️' + spawningCreep.memory.role, HOME.pos.x + 1, HOME.pos.y, {
-            align: 'left',
-            opacity: 0.8,
-        });
-    }
-
-    for (const roomName in Game.rooms) {
-        const room = Game.rooms[roomName];
-        if (room && room.controller && room.controller.my) {
-            const sites = room.find(FIND_CONSTRUCTION_SITES);
-            if (_.size(sites) > 0) {
-                spawnCreepsByRole(HOME, 'builder', 4);
-            }
-        }
-    }
+    runSpawn(HOME);
 
     for (const name in Game.creeps) {
         const creep: Creep = Game.creeps[name];
@@ -56,19 +37,3 @@ export const loop = (): void => {
         runTower(tower);
     }
 };
-
-function spawnCreepsByRole(spawnPoint: StructureSpawn, role: string, amount = 2) {
-    const creeps = _.filter(Game.creeps, (creep: { memory: { role: string } }) => creep.memory.role == role);
-
-    if (creeps.length < amount) {
-        const newName = role + '-' + Game.time;
-        console.log('Spawning new creep:', newName);
-
-        // Game.spawns['Spawn1'].spawnCreep( [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE],
-        //     'HarvesterBig',
-        //     { memory: { role: 'harvester' } } );
-        spawnPoint.spawnCreep([WORK, CARRY, MOVE], newName, {
-            memory: { role },
-        });
-    }
-}

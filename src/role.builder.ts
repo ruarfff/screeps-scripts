@@ -3,9 +3,6 @@ import upgrade from './role.upgrader';
 import { harvestEnergy, setIsWorking } from './creeps';
 
 export default (creep: Creep): void => {
-    console.log(creep.name);
-    console.log('Energy:', creep.carry.energy);
-    console.log('Capacity:', creep.carryCapacity);
     setIsWorking(creep);
     if (!creep.memory.working) {
         harvestEnergy(creep, true, true);

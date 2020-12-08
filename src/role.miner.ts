@@ -4,6 +4,7 @@ export default (creep: Creep): void => {
     // get source
     if (creep.memory.targetSource) {
         const source: Source | null = Game.getObjectById(creep.memory.targetSource);
+
         if (source) {
             // find container next to source
             const container = source.pos.findInRange(FIND_STRUCTURES, 1, {
@@ -18,7 +19,7 @@ export default (creep: Creep): void => {
             // if creep is not on top of the container
             else {
                 // move towards it
-                creep.moveTo(container);
+                creep.moveTo(container, { visualizePathStyle: { stroke: '#ffffff' } });
             }
         }
     }

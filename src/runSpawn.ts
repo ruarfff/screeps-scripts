@@ -1,11 +1,11 @@
 export default (room: Room, spawn: StructureSpawn): void => {
-    spawnCreepsByRole(spawn, 'harvester', 1);
-    spawnCreepsByRole(spawn, 'upgrader', 1);
+    spawnCreepsByRole(spawn, 'harvester', 2);
+    spawnCreepsByRole(spawn, 'upgrader', 4);
     spawnCreepsByRole(spawn, 'repairer', 1);
 
     const sites = room.find(FIND_CONSTRUCTION_SITES);
     if (_.size(sites) > 0) {
-        spawnCreepsByRole(spawn, 'builder', 4);
+        spawnCreepsByRole(spawn, 'builder', 1);
     }
 
     const sources = room.find(FIND_SOURCES);
@@ -16,8 +16,8 @@ export default (room: Room, spawn: StructureSpawn): void => {
         if (
             !_.some(
                 creepsInRoom,
-                (c: { memory: { role: string; sourceId: Id<Source> } }) =>
-                    c.memory.role == 'miner' && c.memory.sourceId == source.id,
+                (c: { memory: { role: string; targetSource: Id<Source> } }) =>
+                    c.memory.role == 'miner' && c.memory.targetSource == source.id,
             )
         ) {
             // check whether or not the source has a container
@@ -47,11 +47,11 @@ function spawnCreepsByRole(spawnPoint: StructureSpawn, role: string, amount = 2)
         console.log('Spawning new creep:', newName);
 
         if (role === 'builder' || role === 'repairer') {
-            spawnPoint.spawnCreep([WORK, WORK, CARRY, CARRY, MOVE, MOVE], newName, {
+            spawnPoint.spawnCreep([WORK, CARRY, MOVE], newName, {
                 memory: { role },
             });
         } else {
-            spawnPoint.spawnCreep([WORK, CARRY, MOVE], newName, {
+            spawnPoint.spawnCreep([WORK, MOVE, CARRY], newName, {
                 memory: { role },
             });
         }

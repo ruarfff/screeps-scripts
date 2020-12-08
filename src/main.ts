@@ -2,6 +2,7 @@ import harvester from './role.harvester';
 import upgrader from './role.upgrader';
 import builder from './role.builder';
 import repairer from './role.repairer';
+import miner from './role.miner';
 import Creep from './RuarfffCreep';
 import runTower from './runTower';
 import runSpawn from './runSpawn';
@@ -11,6 +12,7 @@ const roles: Map<string, (creep: Creep) => void> = new Map([
     ['upgrader', upgrader],
     ['builder', builder],
     ['repairer', repairer],
+    ['miner', miner],
 ]);
 
 export const loop = (): void => {
